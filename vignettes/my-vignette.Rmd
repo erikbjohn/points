@@ -1,0 +1,21 @@
+---
+title: "points"
+author: "Erik Johnson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette illustrates how the points data set works. 
+
+```{r points}
+# 
+library(points)
+points <- list()
+data.path <- '~/Dropbox/pkg.data/points'
+points$address <- points::address(data.path, fresh=FALSE)
+points$shapes <- points::shapes(data.path, fresh=FALSE)
+```
