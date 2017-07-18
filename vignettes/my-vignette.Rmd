@@ -17,5 +17,4 @@ library(points)
 points <- list()
 data.path <- '~/Dropbox/pkg.data/points'
 points$address <- points::address(data.path, fresh=FALSE)
-points$shapes <- points::shapes(data.path, fresh=FALSE)
 ```
