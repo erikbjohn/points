@@ -17,7 +17,9 @@ address.update(data.path, points.address.new,
 \item{points.address}{the original points.address files}
 }
 \description{
-Creates and loads outlines.address file
+Creates/loads and updates points.address file
 }
-\keyword{clean}
-\keyword{outliens,}
+\keyword{address,}
+\keyword{clean,}
+\keyword{points,}
+\keyword{update}

@@ -12,7 +12,8 @@ address(data.path, fresh = FALSE)
 \item{fresh}{logical TRUE for fresh run}
 }
 \description{
-Creates and loads outlines.address file
+Creates and loads points.address file
 }
-\keyword{clean}
-\keyword{outliens,}
+\keyword{clean,}
+\keyword{geocode}
+\keyword{points,}
