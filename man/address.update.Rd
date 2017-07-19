@@ -4,11 +4,11 @@
 \alias{address.update}
 \title{address.update}
 \usage{
-address.update(data.path, points.address.new,
+address.update(dt.pkg.data, points.address.new,
   points.source = "geocode.points", points.address)
 }
 \arguments{
-\item{data.path}{character vector}
+\item{dt.pkg.data}{full package data data.table}
 
 \item{points.address.new}{new points}
 

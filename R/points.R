@@ -28,26 +28,22 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
 #'     parcels
 #' @importFrom dplyr select one_of
 address <- function(data.path, fresh=FALSE){
-  raw.path <- paste0(data.path, '/raw/')
-  clean.path <- paste0(data.path, '/clean/address/')
-  clean <- list(address = paste0(clean.path, 'points.address.rdata'))
-  l.path <- list(clean=clean)       
-  if (file.exists(l.path$clean$address)){
+  if (file.exists(data.path)){
     #print('loading points.address')
-    load(l.path$clean$address)
+    load(data.path)
   } else {
     # Initalize based off the structure of parcels
     parcels.address <- parcels::address(str_replace(data.path, 'points', 'parcels'))
     points.address <- data.table::copy(parcels.address[FALSE])
     points.address <- data.table(points.address, long=as.character(), lat=as.character(), match.descr=character(), match.rank=character())
-    save(points.address, file=l.path$clean$address)
+    save(points.address, file=data.path)
   }
   return(points.address)
 }
 #' @title address.update
 #'
 #' @description Creates/loads and updates points.address file
-#' @param data.path character vector
+#' @param dt.pkg.data full package data data.table
 #' @param points.address.new new points 
 #' @param points.source geocoded points
 #' @param points.address the original points.address files
@@ -60,14 +56,11 @@ address <- function(data.path, fresh=FALSE){
 #'     foreign
 #' @importFrom dplyr select one_of
 #' @importFrom parcels address
-address.update <- function(data.path, points.address.new, points.source='geocode.points',points.address){
-  lat <- NULL; long <- NULL; location.id <- NULL; street.num <- NULL
-  raw.path <- paste0(data.path, '/raw/')
-  clean.path <- paste0(data.path, '/clean/address/')
-  clean <- list(address = paste0(clean.path, 'points.address.rdata'))
-  l.path <- list(clean=clean)      
+address.update <- function(dt.pkg.data, points.address.new, points.source='geocode.points',points.address){
+  lat <- NULL; long <- NULL; location.id <- NULL; street.num <- NULL; pkg.name <- NULL
+  dt.points.data <- dt.pkg.data[pkg.name=='points']$sys.path
   if(missing(points.address)){
-      points.address <- points::address(data.path)
+      points.address <- points::address(dt.points.data)
   }
   cols <- names(points.address)[!(names(points.address)%in%c('location.street.num','location.street.direction'))]
   if (nrow(points.address)>0){
@@ -93,6 +86,6 @@ address.update <- function(data.path, points.address.new, points.source='geocode
   points.address <- points.address[, street.num:=as.numeric(street.num)]
   setkeyv(points.address, names(points.address)[names(points.address)!='location.id'])
   points.address<-unique(points.address)
-  save(points.address, file=l.path$clean$address)
+  save(points.address, file=dt.points.data)
   return(points.address)
 }

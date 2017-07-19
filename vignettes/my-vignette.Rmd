@@ -11,7 +11,7 @@ vignette: >
 
 This vignette illustrates how the points data set works. 
 
-```{r points}
+```{r points, eval=FALSE}
 # 
 library(points)
 points <- list()
